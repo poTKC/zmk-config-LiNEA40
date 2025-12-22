@@ -57,7 +57,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,
+            //スクロール方向を逆転,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -173,10 +173,10 @@
 
         default_layer {
             bindings = <
-&kp Q                  &kp W     &kp E           &kp R  &kp T                                               &kp Y         &kp U  &kp I                &kp O          &kp P
-&ht_tp LEFT_CONTROL A  &kp S     &kp D           &kp F  &kp G                                               &kp H         &kp J  &kp K                &kp L          &lt 6 MINUS
-&ht_tp LEFT_SHIFT Z    &kp X     &kp C           &kp V  &kp B                                               &kp N         &kp M  &kp COMMA            &kp DOT        &mt RIGHT_SHIFT BACKSPACE
-&kp LSHIFT             &kp LALT  &mt LCMD LANG2  &none  &lt 2 SPACE  &lt_tp 3 BACKSPACE    &lt 2 BACKSPACE  &lt_tp 2 RET         &lt 6 RIGHT_BRACKET  &kp BACKSLASH  &mt RIGHT_SHIFT SLASH
+&kp Q                  &kp W     &kp E           &kp R  &kp T                                               &kp Y         &kp U  &kp I           &kp O     &kp P
+&ht_tp LEFT_CONTROL A  &kp S     &kp D           &kp F  &kp G                                               &kp H         &kp J  &kp K           &kp L     &ht_tp RCTRL MINUS
+&ht_tp LEFT_SHIFT Z    &kp X     &kp C           &kp V  &kp B                                               &kp N         &kp M  &kp COMMA       &kp DOT   &ht_tp RSHIFT SLASH
+&kp LSHIFT             &kp LALT  &mt LCMD LANG2  &none  &lt 2 SPACE  &lt_tp 3 BACKSPACE    &lt 3 BACKSPACE  &lt_tp 2 RET         &mt RGUI LANG1  &kp RALT  &mo 3
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
