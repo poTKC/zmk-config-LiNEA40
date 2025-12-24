@@ -1,4 +1,4 @@
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 150
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 10
 
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
@@ -50,6 +50,10 @@
         layers = <FUNCTION>;
         input-processors = <&zip_wheel_scaler 3 1>; //スクロールを3倍速にする
     };
+};
+
+&mkp_input_listener {
+    input-processors = <&zip_temp_layer 1 10000>;
 };
 
 &trackball_listener {
