@@ -57,7 +57,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -123,9 +123,19 @@
             key-positions = <22 23>;
         };
 
+        left_click {
+            bindings = <&mkp LCLK>;
+            key-positions = <16 17>;
+        };
+
+        right_click {
+            bindings = <&mkp RCLK>;
+            key-positions = <17 18>;
+        };
+
         middle_click {
             bindings = <&mkp MCLK>;
-            key-positions = <16 17>;
+            key-positions = <17 8>;
         };
     };
 
@@ -179,6 +189,26 @@
             flavor = "tap-preferred";
             quick-tap-ms = <100>;
         };
+
+        mo_Z: mo_Z {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MO_Z";
+            bindings = <&mod_tap LSHIFT Z>, <&kp LG(LS(Z))>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LALT)>;
+            keep-mods = <(MOD_LGUI|MOD_LSFT)>;
+        };
+
+        mo_minus: mo_minus {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MO_MINUS";
+            bindings = <&mod_tap RCTRL MINUS>, <&kp LC(SEMICOLON)>;
+
+            #binding-cells = <0>;
+            keep-mods = <(MOD_LCTL)>;
+            mods = <(MOD_LCTL)>;
+        };
     };
 
     macros {
@@ -196,8 +226,8 @@
         default_layer {
             bindings = <
 &kp Q                    &kp W     &kp E           &kp R  &kp T                                                                                   &kp Y                   &kp U  &kp I           &kp O     &kp P
-&mod_tap LEFT_CONTROL A  &kp S     &kp D           &kp F  &layer_tap 5 G                                                                          &kp H                   &kp J  &kp K           &kp L     &mod_tap RIGHT_CONTROL MINUS
-&mod_tap LSHIFT Z        &kp X     &kp C           &kp V  &kp B                                                                                   &kp N                   &kp M  &kp COMMA       &kp DOT   &mod_tap RSHIFT SLASH
+&mod_tap LEFT_CONTROL A  &kp S     &kp D           &kp F  &layer_tap 5 G                                                                          &kp H                   &kp J  &kp K           &kp L     &mo_minus
+&mo_Z                    &kp X     &kp C           &kp V  &kp B                                                                                   &kp N                   &kp M  &kp COMMA       &kp DOT   &mod_tap RSHIFT SLASH
 &kp LSHIFT               &kp LALT  &mt LCMD LANG2  &none  &layer_tap_thumb 2 SPACE  &layer_tap_thumb 4 BACKSPACE    &layer_tap_thumb 4 BACKSPACE  &layer_tap_thumb 2 RET         &mt RGUI LANG1  &kp RALT  &mo 3
             >;
 
@@ -206,10 +236,10 @@
 
         MOUSE {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                    &trans    &mkp MB4   &trans     &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &mkp MB5  &mkp LCLK  &mkp RCLK  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans    &trans     &trans     &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans               &trans     &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans    &mkp MB4   &trans     &trans     &trans
+&trans  &trans  &trans  &trans  &trans                    &mkp MB5  &mkp LCLK  &mkp RCLK  &mkp MCLK  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans    &trans     &trans     &trans     &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans               &trans     &trans     &trans
             >;
         };
 
