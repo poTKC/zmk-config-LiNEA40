@@ -57,7 +57,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,
+            //スクロール方向を逆転,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -103,16 +103,6 @@
             key-positions = <0 1>;
         };
 
-        left {
-            bindings = <&kp LEFT_ARROW>;
-            key-positions = <16 17>;
-        };
-
-        right {
-            bindings = <&kp RIGHT>;
-            key-positions = <17 18>;
-        };
-
         mo_BT {
             bindings = <&mo 6>;
             key-positions = <30 31>;
@@ -136,7 +126,6 @@
         middle_click {
             bindings = <&mkp MCLK>;
             key-positions = <16 17>;
-            layers = <1>;
         };
     };
 
@@ -164,8 +153,6 @@
             tapping-term-ms = <200>;
             require-prior-idle-ms = <100>;
             flavor = "tap-preferred";
-            hold-while-undecided;
-            hold-while-undecided-linger;
         };
 
         layer_tap_thumb: layer_tap_thumb {
