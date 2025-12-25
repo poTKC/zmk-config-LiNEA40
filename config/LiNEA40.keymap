@@ -59,7 +59,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -123,6 +123,16 @@
         left_return {
             bindings = <&kp RET>;
             key-positions = <22 23>;
+        };
+
+        left {
+            bindings = <&kp LS(LEFT_ARROW)>;
+            key-positions = <16 17>;
+        };
+
+        right {
+            bindings = <&kp LS(RIGHT)>;
+            key-positions = <17 18>;
         };
     };
 
