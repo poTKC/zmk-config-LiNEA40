@@ -22,13 +22,13 @@
 };
 
 &pointer_accel {
-    input-type = <INPUT_EV_REL>;  // For relative input devices
-    track-remainders;             // Accumulate fractional movements
-    min-factor = <600>;          // 0.8x at very slow speeds
-    max-factor = <4500>;         // 3.0x at fast speeds
-    speed-threshold = <900>;     // 1200 counts/sec for 1x
-    speed-max = <5000>;          // 6000 counts/sec for max accel
-    acceleration-exponent = <2>;  // Quadratic acceleration curve
+    input-type = <INPUT_EV_REL>;
+    track-remainders;
+    min-factor = <100>;
+    max-factor = <4500>;
+    speed-threshold = <900>;
+    speed-max = <5000>;
+    acceleration-exponent = <3>;
 };
 
 / {
