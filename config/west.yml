@@ -8,6 +8,8 @@ manifest:
       url-base: https://github.com/kay-yokoyama
     - name: caksoylar
       url-base: https://github.com/caksoylar
+    - name: oleksandrmaslov
+      url-base: https://github.com/oleksandrmaslov
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -18,6 +20,9 @@ manifest:
       revision: main
     - name: zmk-rgbled-widget
       remote: caksoylar
+      revision: main
+    - name: zmk-pointing-acceleration
+      remote: oleksandrmaslov
       revision: main
   self:
     path: config
