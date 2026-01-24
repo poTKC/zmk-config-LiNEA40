@@ -59,7 +59,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -236,10 +236,10 @@
 
         default_layer {
             bindings = <
-&kp Q                    &kp W              &kp E            &kp R            &kp T                                                                                   &kp Y                   &kp U            &kp I            &kp O              &kp P
-&mod_tap LEFT_CONTROL A  &mod_tap LSHIFT S  &mod_tap LALT D  &mod_tap LGUI F  &layer_tap 5 G                                                                          &kp H                   &mod_tap RGUI J  &mod_tap RALT K  &mod_tap RSHIFT L  &mo_minus
-&mo_Z                    &kp X              &kp C            &kp V            &kp B                                                                                   &kp N                   &kp M            &kp COMMA        &kp DOT            &mod_tap RSHIFT SLASH
-&kp LSHIFT               &kp LALT           &mt LCMD LANG2   &none            &layer_tap_thumb 2 SPACE  &layer_tap_thumb 4 BACKSPACE    &layer_tap_thumb 4 BACKSPACE  &layer_tap_thumb 2 RET                   &mt RGUI LANG1   &kp RALT           &mo 3
+&kp Q                    &kp W             &kp E            &kp R                &kp T                                                                                   &kp Y                   &kp U            &kp I                &kp O                  &kp P
+&mod_tap LEFT_CONTROL A  &kp S             &kp D            &kp F                &layer_tap 5 G                                                                          &kp H                   &kp J            &kp K                &kp L                  &mo_minus
+&mo_Z                    &mod_tap LCTRL X  &mod_tap LALT C  &mod_tap LEFT_GUI V  &kp B                                                                                   &kp N                   &mod_tap RGUI M  &mod_tap LALT COMMA  &mod_tap LCTRL PERIOD  &mod_tap RSHIFT SLASH
+&kp LSHIFT               &kp LALT          &mt LCMD LANG2   &none                &layer_tap_thumb 2 SPACE  &layer_tap_thumb 4 BACKSPACE    &layer_tap_thumb 4 BACKSPACE  &layer_tap_thumb 2 RET                   &mt RGUI LANG1       &kp RALT               &mo 3
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
