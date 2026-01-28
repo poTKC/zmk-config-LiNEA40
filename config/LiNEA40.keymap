@@ -59,7 +59,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -78,11 +78,6 @@
             bindings = <&kp LANG1>;
             key-positions = <27 28>;
             timeout-ms = <50>;
-        };
-
-        L_CTRL {
-            bindings = <&kp LEFT_CONTROL>;
-            key-positions = <11 10>;
         };
 
         L_SHIFT {
@@ -131,12 +126,6 @@
             require-prior-idle-ms = <50>;
         };
 
-        right {
-            bindings = <&kp RIGHT>;
-            key-positions = <17 18>;
-            require-prior-idle-ms = <50>;
-        };
-
         L_LANG2 {
             bindings = <&kp LANG2>;
             key-positions = <1 2>;
@@ -147,6 +136,26 @@
             bindings = <&kp LANG1>;
             key-positions = <7 8>;
             require-prior-idle-ms = <50>;
+        };
+
+        L_LANG {
+            bindings = <&kp LANG2>;
+            key-positions = <11 12>;
+        };
+
+        R_LANG {
+            bindings = <&kp LANG1>;
+            key-positions = <17 18>;
+        };
+
+        L_CSA {
+            bindings = <&kp LC(LA(LSHIFT))>;
+            key-positions = <10 11 12>;
+        };
+
+        L_CS {
+            bindings = <&kp LC(LSHIFT)>;
+            key-positions = <10 11>;
         };
     };
 
@@ -287,10 +296,10 @@
 
         UTIL {
             bindings = <
-&kp ESC    &kp LS(LA(TAB))   &kp LC(LA(UP_ARROW))    &kp LA(TAB)        &none                     &none    &none  &none   &none   &kp ESC
-&kp LCTRL  &kp LC(LA(LEFT))  &kp LC(LA(DOWN_ARROW))  &kp LC(LA(RIGHT))  &none                     &kp F17  &none  &none   &none   &kp RCTRL
-&kp LSHFT  &none             &kp LC(LA(S))           &none              &none                     &kp F16  &none  &none   &none   &kp RSHFT
-&trans     &trans            &trans                  &trans             &trans  &trans    &trans  &trans          &trans  &trans  &trans
+&kp ESC    &kp LS(LA(TAB))       &kp LC(LA(UP_ARROW))    &kp LA(TAB)            &none                     &none    &none  &none   &none   &kp ESC
+&kp LCTRL  &kp LC(LA(LEFT))      &kp LC(LA(DOWN_ARROW))  &kp LC(LA(RIGHT))      &none                     &kp F17  &none  &none   &none   &kp RCTRL
+&kp LSHFT  &kp LC(LA(LS(LEFT)))  &kp LC(LA(S))           &kp LS(LC(LA(RIGHT)))  &none                     &kp F16  &none  &none   &none   &kp RSHFT
+&trans     &trans                &trans                  &trans                 &trans  &trans    &trans  &trans          &trans  &trans  &trans
             >;
         };
 
