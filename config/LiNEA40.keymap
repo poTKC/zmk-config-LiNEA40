@@ -59,7 +59,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -320,10 +320,10 @@
 
         SYMBOL {
             bindings = <
-&kp EXCLAMATION  &kp AT     &kp HASH              &kp DOLLAR         &kp PERCENT                                  &kp CARET     &kp AMPERSAND  &kp LBKT  &kp RBKT  &kp ASTERISK
-&kp LCTRL        &kp TILDE  &kp PIPE              &kp DOUBLE_QUOTES  &kp SQT                                      &kp COLON     &kp SEMICOLON  &kp LBRC  &kp RBRC  &kp UNDERSCORE
-&kp LEFT_SHIFT   &kp GRAVE  &kp NON_US_BACKSLASH  &kp EQUAL          &kp PLUS                                     &kp LPAR      &kp RPAR       &kp LT    &kp GT    &kp QUESTION
-&trans           &trans     &trans                &trans             &trans       &kp LA(SPACE)    &kp LA(SPACE)  &space_retrn                 &kp LPAR  &kp RPAR  &trans
+&kp EXCLAMATION  &kp AT     &kp HASH       &kp DOLLAR         &kp PERCENT                                  &kp CARET     &kp AMPERSAND  &kp LBKT  &kp RBKT  &kp ASTERISK
+&kp LCTRL        &kp TILDE  &kp PIPE       &kp DOUBLE_QUOTES  &kp SQT                                      &kp COLON     &kp SEMICOLON  &kp LBRC  &kp RBRC  &kp UNDERSCORE
+&kp LEFT_SHIFT   &kp GRAVE  &kp BACKSLASH  &kp EQUAL          &kp PLUS                                     &kp LPAR      &kp RPAR       &kp LT    &kp GT    &kp QUESTION
+&trans           &trans     &trans         &trans             &trans       &kp LA(SPACE)    &kp LA(SPACE)  &space_retrn                 &kp LPAR  &kp RPAR  &trans
             >;
 
             sensor-bindings = <&re_kp LA(LS(C_VOLUME_UP)) LA(LS(C_VOL_DN))>;
