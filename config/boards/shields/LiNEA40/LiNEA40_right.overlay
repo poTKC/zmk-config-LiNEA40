@@ -28,7 +28,7 @@
     max-factor = <5000>;
     speed-threshold = <1000>;
     speed-max = <7000>;
-    acceleration-exponent = <2>;
+    acceleration-exponent = <1>;
 };
 
 / {
