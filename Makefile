@@ -1,24 +1,44 @@
-CONFIG_DIR = config
+# ローカルビルド (Docker / colima が必要)
+#   make            左右 + settings_reset をビルド
+#   make right      右手 (central, DYA Studio 有効) のみ
+#   make update     west.yml の依存を更新
+#   make clean      ビルド成果物を削除
+# 成果物は ./firmware/*.uf2 にコピーされます
 
-SRCS_LEFT = $(shell find $(CONFIG_DIR) -type f ! -name "*_right*")
-SRCS_RIGHT = $(shell find $(CONFIG_DIR) -type f ! -name "*_left*")
+CONFIG_DIR = $(CURDIR)/config
+WS        ?= $(HOME)/zmk-dya-ws
+IMAGE     ?= zmkfirmware/zmk-build-arm:stable
+OUT        = $(CURDIR)/firmware
 
-TARGET_LEFT = ../zmk/app/build/left/zephyr/zmk.uf2
-TARGET_RIGHT = ../zmk/app/build/right/zephyr/zmk.uf2
+DOCKER = docker run --rm -v $(WS):/ws -v $(CONFIG_DIR):/ws/config -w /ws $(IMAGE) \
+	sh -c 'git config --global --add safe.directory "*" && $(1)'
 
-.PHONY: build clean
+WEST_BUILD = west zephyr-export >/dev/null && \
+	west build -p -s zmk/app -d build/$(1) -b xiao_ble//zmk $(3) -- \
+	-DZMK_CONFIG=/ws/config -DSHIELD="$(2)"
 
-build: $(TARGET_LEFT) $(TARGET_RIGHT)
+.PHONY: all left right reset update clean
 
-#build: $(TARGET_RIGHT)
+all: left right reset
 
-$(TARGET_LEFT): $(SRCS_LEFT)
-	docker exec -w /workspaces/zmk/app -it $(container_name) west build -d build/left -b seeeduino_xiao_ble -- -DSHIELD=LiNEA40_left -DZMK_CONFIG="/workspaces/zmk-config/config"
-	docker exec -w /workspaces/zmk/app -it $(container_name) cp build/left/zephyr/zmk.uf2 build/LiNEA40_left.uf2
+$(WS)/.west:
+	mkdir -p $(WS)
+	$(call DOCKER,west init -l config && west update --narrow -o=--depth=1)
 
-$(TARGET_RIGHT): $(SRCS_RIGHT)
-	docker exec -w /workspaces/zmk/app -it $(container_name) west build -d build/right -b seeeduino_xiao_ble -S studio-rpc-usb-uart -S zmk-usb-logging -- -DSHIELD=LiNEA40_right -DZMK_CONFIG="/workspaces/zmk-config/config" -DZMK_EXTRA_MODULES="/workspaces/zmk-modules/zmk-pmw3610-driver;/workspaces/zmk-modules/zmk-rgbled-widget" -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
-	docker exec -w /workspaces/zmk/app -it $(container_name) cp build/right/zephyr/zmk.uf2 build/LiNEA40_right.uf2
+update: | $(WS)/.west
+	$(call DOCKER,west update --narrow -o=--depth=1)
+
+left: | $(WS)/.west
+	$(call DOCKER,$(call WEST_BUILD,left,LiNEA40_left rgbled_adapter,))
+	mkdir -p $(OUT) && cp $(WS)/build/left/zephyr/zmk.uf2 $(OUT)/LiNEA40_left.uf2
+
+right: | $(WS)/.west
+	$(call DOCKER,$(call WEST_BUILD,right,LiNEA40_right rgbled_adapter,-S studio-rpc-usb-uart))
+	mkdir -p $(OUT) && cp $(WS)/build/right/zephyr/zmk.uf2 $(OUT)/LiNEA40_right.uf2
+
+reset: | $(WS)/.west
+	$(call DOCKER,$(call WEST_BUILD,reset,settings_reset,))
+	mkdir -p $(OUT) && cp $(WS)/build/reset/zephyr/zmk.uf2 $(OUT)/settings_reset.uf2
 
 clean:
-	docker exec -it $(container_name) rm -rf /workspaces/zmk/app/build
+	rm -rf $(WS)/build $(OUT)

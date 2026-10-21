@@ -1,14 +1,56 @@
 #include "LiNEA40.dtsi"
 #include <input/processors.dtsi>
+#include <input/processors/runtime-input-processor.dtsi>
 #include <behaviors/input_gestures_accel.dtsi>
+#include <dt-bindings/zmk/runtime_input_processor.h>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
 
 &default_transform {
     col-offset = <6>;
 };
 
+// 以下の runtime input processor は DYA Studio の Trackball 画面から変更できます
+
+// オートマウスは従来通り zip_temp_layer で行う (クリックでもタイマーを延長するため)
 &zip_temp_layer {
     excluded-positions = <6 7 8 15 16 17 18 19>;
     require-prior-idle-ms = <500>;
+};
+
+// スクロール (旧 scroll-layers = <5>)
+&scroll_runtime_input_processor {
+    active-layers = <BIT(5)>;
+    x-codes = <INPUT_REL_X>;
+    y-codes = <INPUT_REL_Y>;
+    xy-to-scroll-enabled;
+    x-invert;
+    y-invert;
+    scale-multiplier = <1>;
+    scale-divisor = <3>;
+    axis-snap-mode = <AXIS_SNAP_MODE_Y>;
+    axis-snap-threshold = <600>;
+};
+
+/ {
+    // スナイプ (旧 snipe-layers = <2>, CPI 800 -> 400)
+    snipe_runtime_input_processor: snipe_runtime_input_processor {
+        compatible = "zmk,input-processor-runtime";
+        processor-label = "snipe";
+        type = <INPUT_EV_REL>;
+        x-codes = <INPUT_REL_X>;
+        y-codes = <INPUT_REL_Y>;
+        scale-multiplier = <1>;
+        scale-divisor = <2>;
+        rotation-degrees = <0>;
+        track-remainders;
+        active-layers = <BIT(2)>;
+
+        temp-layer-transparent-behavior = <&trans>;
+        temp-layer-kp-behavior = <&kp>;
+        temp-layer-keep-keycodes = <LEFT_CONTROL LEFT_SHIFT LEFT_ALT LEFT_GUI RIGHT_CONTROL RIGHT_SHIFT RIGHT_ALT RIGHT_GUI>;
+
+        #input-processor-cells = <0>;
+    };
 };
 
 &kscan0 {
@@ -30,19 +72,6 @@
     speed-max = <7000>;
     acceleration-exponent = <1>;
 };
-
-/ {
-    trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
-
-        input-processors = <
-            &zip_temp_layer 1 10000
-            &pointer_accel
-        >;
-    };
-};
-
 
 &pinctrl {
     spi0_default: spi0_default {
@@ -75,18 +104,26 @@
 
     trackball: trackball@0 {
         status = "okay";
-        compatible = "pixart,pmw3610";
+        compatible = "cormoran,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; //MOT-D6
-        //automouse-layer = <1>;
-        snipe-layers = <2>;
-        scroll-layers = <5>;
-        //scroll-layers = <4 5 6>;
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
+        cpi = <800>;
+        settings-id = "trackball";
     };
 };
 
 &trackball_listener {
     status = "okay";
     device = <&trackball>;
+    input-processors = <
+        &zip_temp_layer 1 10000
+        &mouse_runtime_input_processor
+        &scroll_runtime_input_processor
+        &snipe_runtime_input_processor
+        &pointer_accel
+    >;
 };
