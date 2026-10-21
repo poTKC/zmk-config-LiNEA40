@@ -58,8 +58,10 @@
 // runtime input processor で設定しています (DYA Studio から変更可)
 
 / {
-    combos {
-        compatible = "zmk,combos";
+    // DYA Studio から編集できるよう runtime combo の初期値として定義
+    // (DYA Studio で編集した内容が優先され、"Reset to Default" でここに戻る)
+    runtime_combo_defaults {
+        compatible = "cormoran,runtime-combo-defaults";
 
         combo_us {
             bindings = <&m_LANG2>;
