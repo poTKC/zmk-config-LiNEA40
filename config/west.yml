@@ -8,8 +8,6 @@ manifest:
       url-base: https://github.com/caksoylar
     - name: daniel2887
       url-base: https://github.com/daniel2887
-    - name: potkc
-      url-base: https://github.com/poTKC
   projects:
     # DYA Studio (Custom Studio Protocol) 対応の ZMK / Zephyr
     - name: zmk
@@ -48,13 +46,6 @@ manifest:
     - name: zmk-feature-fast-keymap
       remote: cormoran
       revision: main
-    - name: zmk-feature-runtime-macro
-      remote: cormoran
-      revision: main
-    # コンボが16個を超えると DYA Studio のコンボ一覧でクラッシュする不具合の修正版
-    - name: zmk-feature-runtime-combo
-      remote: potkc
-      revision: 6816dafc18c5d01ce29589e2350529914a903990
     - name: zmk-feature-input-stream
       remote: cormoran
       revision: main
